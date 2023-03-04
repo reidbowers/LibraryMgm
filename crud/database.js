@@ -4,7 +4,7 @@ var connection = mysql.createConnection({
     host : 'localhost',
     database : 'librarymgm',
     user : 'root',
-    password : ''
+    password : 'password'
 
 });
 
