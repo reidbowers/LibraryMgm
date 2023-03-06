@@ -23,8 +23,15 @@ router.get('/get_data', function(request,response, next){
 
     database.query(query, function(error,data){
 
+      if(error){
+        throw error;
+      }
+      else{
         response.json(data);
-        
+      }
+      
+      
+
     })
 });
 

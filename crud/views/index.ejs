@@ -15,8 +15,8 @@
     <div class="container">
         <h1 class="text-center text=primary mt-3 mb-3"> CML Catalog Search</h1>
 
-        <input type="text" id="search" class="form-control form-control-lg" />
-        <span id="search-result"></span>
+        <input type="text" id="autocomplete_search" class="form-control form-control-lg" placeholder="Search title of book here..." />
+        <span id="search_result"></span>
     </div>
   </body>
 </html>
@@ -28,14 +28,18 @@ function load_data(query = ''){
   fetch('/get_data?search_query='+query+'').then(function(response){
     return response.json();
   }).then(function(responseData){
+
     var html = '<ul class="list-group">';
 
     if(responseData.length > 0){
       for(var count = 0; count < responseData.length; count++){
         var regular_expression = new RegExp('('+query+')', 'gi');
 
-        html += '<a href="#" class="list-group-item list-group-item-action">'+responseData[count].media_title.replace(regular_expression, '<span class="text-primary fw-bold">$1</span>')+'</a>';
+        html += '<a href="#" class="list-group-item list-group-item-action" onclick="get_text(this)">'+responseData[count].title.replace(regular_expression, '<span class="text-primary fw-bold">$1</span>')+'</a>';
       }
+    }
+    else{
+      html += '<a href="#" class="list-group-item list-group-item-action disabled">Not found</a>';
     }
 
     html += '<ul>';
@@ -45,12 +49,32 @@ function load_data(query = ''){
   });
 }
 
-var search_element = document.getElementById('search');
+var search_element = document.getElementById("autocomplete_search");
 
 search_element.onkeyup = function(){
   var query = search_element.value;
 
   load_data(query);
 }
+
+search_element.onfocus = function(){
+
+  var query = search_element.value;
+
+  load_data(query);
+
+};
+
+function get_text(event)
+    {
+        var media_title = event.textContent;
+
+        console.log(media_title);
+
+        document.getElementById('autocomplete_search').value = media_title;
+
+        document.getElementById('search_result').innerHTML = '';
+    };
+
 
 </script>
