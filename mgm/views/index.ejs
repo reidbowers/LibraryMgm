@@ -21,7 +21,7 @@
           <div class="d-flex justify-content-center">
             <button class = "btn btn-primary btn-md" type="submit">Search</button>
             &emsp;
-            <a href="/sample_data/" class="btn btn-primary btn-sm">Show all Media</a>
+            <a href="/catalog/" class="btn btn-primary btn-sm">Show all Media</a>
           </div>
         
     </div>
@@ -89,7 +89,7 @@ function get_text(event)
           return response.json();
         }).then(function(responseData){
             title = responseData;
-            location.href = '/sample_data/edit/'+responseData.isbn;
+            location.href = '/catalog/edit/'+responseData.isbn;
         })
         */
     };

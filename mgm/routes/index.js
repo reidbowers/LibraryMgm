@@ -53,7 +53,7 @@ router.get('/get_data', function(request,response, next){
 
 
 
-router.get("/sample_data/", function(request, response, next){
+router.get("/catalog/", function(request, response, next){
 
   var query = "SELECT * FROM `librarymgm`.`media` LIMIT 1000;"
 
@@ -64,7 +64,7 @@ router.get("/sample_data/", function(request, response, next){
       }
       else
       {
-          response.render('sample_data', {title:'CML Catalog', action:'list', sampleData:data});
+          response.render('catalog', {title:'CML Catalog', action:'list', sampleData:data});
       }
   })
 });

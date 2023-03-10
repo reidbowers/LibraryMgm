@@ -18,7 +18,7 @@
                 <div class ="card">
                     <div class="card-header"></div>
                     <div class="card-body">
-                        <form method="POST" action="/sample_data/add_sample_data">
+                        <form method="POST" action="/catalog/add_catalog">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
@@ -84,7 +84,7 @@
                     <div class ="card">
                         <div class="card-header">Edit Book</div>
                         <div class="card-body">
-                            <form method="POST" action="/sample_data/edit/<%= sampleData.isbn %>">
+                            <form method="POST" action="/catalog/edit/<%= sampleData.isbn %>">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
@@ -157,7 +157,7 @@
                             <div class ="row">
                                 <div class = "col">Catalog View</div>
                                 <div class = "col">
-                                    <a href="/sample_data/add" class ="btn btn-success btn-sm float-end">Add</a>
+                                    <a href="/catalog/add" class ="btn btn-success btn-sm float-end">Add</a>
                                 </div>
                             </div>
                         </div>
@@ -189,8 +189,8 @@
                                              <% } %>
                                         </td>
                                         <td>
-                                            <a href="/sample_data/edit/<%= data.isbn %>" class="btn btn-primary btn-sm">Edit</a>
-                                            <a href="/sample_data/delete/<%= data.isbn %>" class="btn btn-danger btn-sm">Delete</a>
+                                            <a href="/catalog/edit/<%= data.isbn %>" class="btn btn-primary btn-sm">Edit</a>
+                                            <a href="/catalog/delete/<%= data.isbn %>" class="btn btn-danger btn-sm">Delete</a>
                                         </td>
                                     </tr>
                                     <%});}

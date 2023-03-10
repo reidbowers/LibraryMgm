@@ -15,7 +15,7 @@ router.get("/", function(request, response, next){
         }
         else
         {
-            response.render('sample_data', {title:'CML Catalog', action:'list', sampleData:data, message:request.flash('success')});
+            response.render('catalog', {title:'CML Catalog', action:'list', sampleData:data, message:request.flash('success')});
         }
     })
 });
@@ -23,11 +23,11 @@ router.get("/", function(request, response, next){
 
 
 router.get("/add", function(request, response, next){
-    response.render("sample_data", {title: 'Add Media to Catalog', action: 'add'});
+    response.render("catalog", {title: 'Add Media to Catalog', action: 'add'});
 });
 
 
-router.post("/add_sample_data", function(request, response, next){
+router.post("/add_catalog", function(request, response, next){
     var title = request.body.title;
     var author = request.body.author;
     var isbn = request.body.isbn;
@@ -50,7 +50,7 @@ router.post("/add_sample_data", function(request, response, next){
         else
         {
             request.flash('success', 'New Book Created');
-            response.redirect("/sample_data");
+            response.redirect("/catalog");
         }
     });
 });
@@ -61,7 +61,7 @@ router.get('/edit/:isbn', function(request, response, next){
     var query = `SELECT * FROM media WHERE isbn = "${isbn}"`;
 
     database.query(query, function(error, data){
-        response.render('sample_data',{title: 'Edit Media Entry', action:'edit', sampleData:data[0]});
+        response.render('catalog',{title: 'Edit Media Entry', action:'edit', sampleData:data[0]});
     });
 } )
 
@@ -81,7 +81,7 @@ router.get('/delete/:isbn', function(request, response, next){
         }
         else{
             request.flash('success', title+' deleted successfully' );
-            response.redirect("/sample_data");
+            response.redirect("/catalog");
         }
     })
 
@@ -115,7 +115,7 @@ router.post('/edit/:isbn', function(request, response, next){
         }
         else{
             request.flash('success', title+' successfully edited');
-            response.redirect('/sample_data');
+            response.redirect('/catalog');
         }
     });
 })
