@@ -15,7 +15,7 @@ router.get("/", function(request, response, next){
         }
         else
         {
-            response.render('sample_data', {title:'CML Catalog', action:'list', sampleData:data});
+            response.render('sample_data', {title:'CML Catalog', action:'list', sampleData:data, message:request.flash('success')});
         }
     })
 });
@@ -49,6 +49,7 @@ router.post("/add_sample_data", function(request, response, next){
         }
         else
         {
+            request.flash('success', 'New Book Created');
             response.redirect("/sample_data");
         }
     });
@@ -64,9 +65,10 @@ router.get('/edit/:isbn', function(request, response, next){
     });
 } )
 
-/*     WIP Delete Function
-router.get('/sample_data/delete/:isbn', function(request, response, next){
+
+router.get('/delete/:isbn', function(request, response, next){
     var isbn = request.params.isbn;
+    var title = request.params.title;
 
     var query = `
     DELETE FROM media WHERE isbn = "${isbn}"
@@ -75,17 +77,16 @@ router.get('/sample_data/delete/:isbn', function(request, response, next){
     database.query(query, function(error, data){
 
         if(error){
-            response.redirect("/sample_data");
-            //throw error;
-            
+            throw error;
         }
         else{
+            request.flash('success', title+' deleted successfully' );
             response.redirect("/sample_data");
         }
     })
 
 })
-*/
+
 router.post('/edit/:isbn', function(request, response, next){
     var isbn = request.params.isbn;
 
@@ -113,10 +114,13 @@ router.post('/edit/:isbn', function(request, response, next){
             throw error;
         }
         else{
+            request.flash('success', title+' successfully edited');
             response.redirect('/sample_data');
         }
     });
 })
+
+
 
 
 module.exports=router;

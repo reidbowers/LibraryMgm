@@ -14,9 +14,16 @@
   <body>
     <div class="container">
         <h1 class="text-center text=primary mt-3 mb-3"> CML Catalog Search</h1>
-
-        <input type="text" id="autocomplete_search" class="form-control form-control-lg" placeholder="Search title of book here..." />
+        
+        <input type="text" id="autocomplete_search" class="form-control form-control-lg" name="find" placeholder="Search title of book here..." />
         <span id="search_result"></span>
+
+          <div class="d-flex justify-content-center">
+            <button class = "btn btn-primary btn-md" type="submit">Search</button>
+            &emsp;
+            <a href="/sample_data/" class="btn btn-primary btn-sm">Show all Media</a>
+          </div>
+        
     </div>
   </body>
 </html>
@@ -32,6 +39,7 @@ function load_data(query = ''){
     var html = '<ul class="list-group">';
 
     if(responseData.length > 0){
+      
       for(var count = 0; count < responseData.length; count++){
         var regular_expression = new RegExp('('+query+')', 'gi');
 
@@ -67,6 +75,7 @@ search_element.onfocus = function(){
 
 function get_text(event)
     {
+
         var media_title = event.textContent;
 
         console.log(media_title);
@@ -74,6 +83,15 @@ function get_text(event)
         document.getElementById('autocomplete_search').value = media_title;
 
         document.getElementById('search_result').innerHTML = '';
+
+        /*   WIP Routing for search selection
+        fetch('/get_isbn?search_query='+media_title+'').then(function(response){
+          return response.json();
+        }).then(function(responseData){
+            title = responseData;
+            location.href = '/sample_data/edit/'+responseData.isbn;
+        })
+        */
     };
 
 

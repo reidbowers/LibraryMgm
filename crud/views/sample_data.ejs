@@ -4,7 +4,7 @@
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             
-            <!-- Bootstrap CSS Link Goes Here -->
+            <!-- Temp CSS  -->
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
             
             <title></title>
@@ -23,7 +23,7 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label>ISBN</label>
-                                        <input type="text" name="isbn" id="isbn" class="form-control"/>
+                                        <input maxlength="14" type="text" name="isbn" id="isbn" class="form-control"/>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -82,14 +82,14 @@
 
                 <% } else if(action== 'edit') { %>
                     <div class ="card">
-                        <div class="card-header">Sample Form</div>
+                        <div class="card-header">Edit Book</div>
                         <div class="card-body">
                             <form method="POST" action="/sample_data/edit/<%= sampleData.isbn %>">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label>ISBN</label>
-                                            <input type="text" name="isbn" id="isbn" class="form-control" value= "<%= sampleData.isbn %>" />
+                                            <input maxlength="14" type="text" name="isbn" id="isbn" class="form-control" value= "<%= sampleData.isbn %>" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -152,11 +152,10 @@
                 
 
                 <% } else{ %>
-                
-                   <div class="card">
+                    <div class="card">
                         <div class="card-header">
                             <div class ="row">
-                                <div class = "col">Sample Data</div>
+                                <div class = "col">Catalog View</div>
                                 <div class = "col">
                                     <a href="/sample_data/add" class ="btn btn-success btn-sm float-end">Add</a>
                                 </div>
@@ -191,7 +190,7 @@
                                         </td>
                                         <td>
                                             <a href="/sample_data/edit/<%= data.isbn %>" class="btn btn-primary btn-sm">Edit</a>
-                                            <!-- WIP DELETE Function <a href="/sample_data/delete/<%= data.isbn %>" class="btn btn-danger btn-sm">Delete</a> -->
+                                            <a href="/sample_data/delete/<%= data.isbn %>" class="btn btn-danger btn-sm">Delete</a>
                                         </td>
                                     </tr>
                                     <%});}
@@ -207,6 +206,7 @@
                             </div>
                         </div>
                    </div> 
+                   
 
                 <% } %>
             </div>
