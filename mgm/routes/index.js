@@ -1,6 +1,6 @@
+/* Dependencies    */
 var express = require('express');
 var router = express.Router();
-
 var database = require('../database');
 
 
@@ -9,6 +9,7 @@ var database = require('../database');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
+  /* Load Data  */
   var query = "SELECT * FROM `librarymgm`.`media` LIMIT 1000;"
 
     database.query(query, function(error, data){
@@ -18,6 +19,7 @@ router.get('/', function(req, res, next) {
         }
         else
         {
+            /* Render and Display Data    */
             res.render('index', {title:'CML Search',sampleData:data});
         }
     })
@@ -26,6 +28,7 @@ router.get('/', function(req, res, next) {
 
 });
 
+/* Retrieve Autocomplete data from DB   */
 router.get('/get_data', function(request,response, next){
 
     var search_query = request.query.search_query;
@@ -42,6 +45,7 @@ router.get('/get_data', function(request,response, next){
         throw error;
       }
       else{
+        /* Return Results  */
         response.json(data);
       }
       
@@ -52,7 +56,7 @@ router.get('/get_data', function(request,response, next){
 
 
 
-
+/* Routing for 'Show All' Button  */
 router.get("/catalog/", function(request, response, next){
 
   var query = "SELECT * FROM `librarymgm`.`media` LIMIT 1000;"
@@ -64,13 +68,15 @@ router.get("/catalog/", function(request, response, next){
       }
       else
       {
+        /* Display catalog  */
           response.render('catalog', {title:'CML Catalog', action:'list', sampleData:data});
       }
   })
 });
 
 
-/*   WIP Routing for Search selection
+/* -----  WIP Routing for selecting search element  ----
+
 router.get('/get_isbn', function(request, response, next){
   var search_query = request.query.search_query;
   
@@ -85,4 +91,5 @@ router.get('/get_isbn', function(request, response, next){
     }
   })
 */
+
 module.exports = router;
