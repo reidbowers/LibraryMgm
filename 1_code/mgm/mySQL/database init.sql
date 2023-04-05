@@ -10,6 +10,18 @@ CREATE TABLE IF NOT EXISTS libraryMgm.media(
     
 );
 
+CREATE TABLE IF NOT EXISTS libraryMgm.user_login(
+    user_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+    user_password VARCHAR(50) NOT NULL,
+    session_id VARCHAR(100) NOT NULL
+);
+
+INSERT INTO libraryMgm.user_login(user_id,username,user_password,session_id)
+    VALUES
+    (1, 'reidbowers','password',''),
+    (2, 'schupp', 'grady', '');
+
 INSERT INTO libraryMgm.media(isbn,title,author,quantity,medDesc,publishyr,genre)
     VALUES
     (89392781384231,'To Kill a Mockingbird','Harper Lee',2,'blah blah blah blah word count word count','1960','Fiction'),

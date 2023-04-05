@@ -22,8 +22,8 @@ app.set('view engine', 'ejs');
 app.use(session({
   secret : 'libmgm',
   cookie : {maxAge : 40000},
-  saveUninitialized :false,
-  resave : false
+  saveUninitialized : true,
+  resave : true
 }));
 
 app.use(flash());
