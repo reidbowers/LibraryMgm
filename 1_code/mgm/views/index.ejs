@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html> 
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,6 +15,7 @@
     <div class="container">
         <h1 class="text-center text=primary mt-3 mb-3"> CML Catalog Search</h1>
 
+        <form method="GET" action="/search">
         <!-- Autocomplete Search-bar -->
         <input type="text" id="autocomplete_search" class="form-control form-control-lg" name="find" placeholder="Search title of book here..." />
 
@@ -23,7 +24,9 @@
 
         <!-- Search and Show media Buttons-->
         <div class="d-flex justify-content-center">
+            
             <button class = "btn btn-primary btn-md" type="submit">Search</button>
+            </form>
             &emsp;
             <a href="/catalog/" class="btn btn-primary btn-sm">Show all Media</a>
         </div>
@@ -72,7 +75,7 @@ function load_data(query = ''){
   });
 }
 
-//Fills searchbar with selected search result  *WIP function will navigate to edit page of selected result*
+//Fills searchbar with selected search result 
 function get_text(event)
     {
 
@@ -84,14 +87,7 @@ function get_text(event)
 
         document.getElementById('search_result').innerHTML = '';
 
-        /*   WIP Routing for search selection
-        fetch('/get_isbn?search_query='+media_title+'').then(function(response){
-          return response.json();
-        }).then(function(responseData){
-            title = responseData;
-            location.href = '/catalog/edit/'+responseData.isbn;
-        })
-        */
+        
     };
 
 //update autocomplete with each key-press

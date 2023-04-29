@@ -34,8 +34,8 @@ router.get('/get_data', function(request,response, next){
     var search_query = request.query.search_query;
 
     var query = `
-    SELECT title FROM media
-    WHERE title LIKE '%${search_query}%'
+    SELECT title,author FROM media
+    WHERE title LIKE '%${search_query}%' OR author LIKE '%${search_query}%'
     LIMIT 10
     `;
 
@@ -54,7 +54,18 @@ router.get('/get_data', function(request,response, next){
     })
 });
 
+router.get('/search', function(req, res){
+  const find = req.query.find;
+  const query = `
+  SELECT * FROM media 
+  WHERE title LIKE '%${find}%' OR author LIKE '%${find}%'
+  `;
 
+  database.query(query, function(error, results){
+    if(error) throw error;
+    res.render('catalog', {title:'CML Catalog', action:'search', sampleData:results, message:req.flash('success')});
+  });
+});
 
 /* Routing for 'Show All' Button  */
 router.get("/catalog/", function(request, response, next){

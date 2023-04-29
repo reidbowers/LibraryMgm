@@ -2,13 +2,12 @@ var express = require('express');
 var router = express.Router();
 
 var database = require('../database');
+/* Retrieve login */ 
 
-/* Retrieve login */
+router.get('/', function(req, res, next) {
+    res.render('login', { title: 'Express', session : req.session });
+  });
 
-router.get('/', function(req, res, next){
-    res.render('login', {title: 'Express', session : req.session});
-
-});
 
 router.post('/login', function(request, response, next){
     var username = request.body.username;
@@ -27,7 +26,7 @@ router.post('/login', function(request, response, next){
                 for(var count = 0; count < data.length; count++){
                     if(data[count].user_password == user_password){
                         request.session.user_id = data[count].user_id;
-                        response.redirect("/");
+                        response.redirect("/catalog");
                     }
                     else{
                         response.send('Incorrect Password');
@@ -47,6 +46,7 @@ router.post('/login', function(request, response, next){
     }
 
 });
+
 
 router.get('/logout', function(request, response, next){
     request.session.destroy();

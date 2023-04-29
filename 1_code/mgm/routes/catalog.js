@@ -1,7 +1,7 @@
 /* Dependencies    */
 var express = require('express');
 var router = express.Router();
-var database = require('../database');
+var database = require('../database'); 
 
 
 /* Load catalog  */
@@ -38,28 +38,24 @@ router.post("/add_catalog", function(request, response, next){
     var quantity = request.body.quantity;
     var medDesc = request.body.medDesc;
     var publishyr = request.body.publishyr;
+    var category = request.body.category;
 
 
     /* Inserting all user inputs into DB for new Book entry   */
     var query =`
     INSERT INTO media 
-    (isbn,title,author,quantity,medDesc,publishyr,genre) 
-    VALUES("${isbn}","${title}", "${author}", "${quantity}", "${medDesc}", "${publishyr}", "${genre}")
+    (isbn,title,author,quantity,medDesc,publishyr,genre,category) 
+    VALUES("${isbn}","${title}", "${author}", "${quantity}", "${medDesc}", "${publishyr}", "${genre}", "${category}")
     `;
-
+    try{
     database.query(query, function(error,data){
-        if(error)
-        {
-            throw error;
-        }
-        else
-        {
-            //request.flash('success', 'New Book Created');    *WIP Success Flash popup*
-
-            // Redirect to main catalog
-            response.redirect("/catalog");
-        }
-    });
+    });}
+    catch{
+        throw(error);
+    }
+    finally{
+        response.redirect("/catalog");
+    }
 });
 
 /* Routing for edit button, retrieves ISBN from selection */
@@ -83,8 +79,8 @@ router.get('/delete/:isbn', function(request, response, next){
     var query = `
     DELETE FROM media WHERE isbn = "${isbn}"
     `;
-
-    database.query(query, function(error, data){
+    
+        database.query(query, function(error, data){
 
         if(error){
             throw error;
@@ -97,7 +93,7 @@ router.get('/delete/:isbn', function(request, response, next){
         }
     })
 
-})
+    });
 
 // Update data in DB after edit in catalog
 router.post('/edit/:isbn', function(request, response, next){
@@ -108,7 +104,8 @@ router.post('/edit/:isbn', function(request, response, next){
     var genre = request.body.genre;
     var quantity = request.body.quantity;
     var medDesc = request.body.medDesc;
-    var publishyr = request.body.publishyr; 
+    var publishyr = request.body.publishyr;
+    var category = request.body.category;
 
     //Update Data
     var query = `
@@ -119,22 +116,21 @@ router.post('/edit/:isbn', function(request, response, next){
     quantity = "${quantity}",
     medDesc = "${medDesc}",
     publishyr = "${publishyr}"
+    category = "${category}"
     WHERE isbn = "${isbn}"
     `;
 
     //Run Update Query
+    try{
     database.query(query, function(error,data){
 
-        if(error){
-            throw error;
-        }
-        else{
-            //request.flash('success', title+' successfully edited'); * WIP flash confirm message *
-
-            //Display Catalog
-            response.redirect('/catalog');
-        }
-    });
-})
+    })}
+    catch{
+        throw(error);
+    }
+    finally{
+        response.redirect('/catalog/');
+    }
+});
 
 module.exports=router;

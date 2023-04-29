@@ -4,7 +4,7 @@
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             
-            <!-- Temp CSS  -->
+            <!-- Temp CSS  --> 
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
             
             <title>Catalog</title>
@@ -123,6 +123,17 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label>Category</label>
+                                            <select name="genre" class="form-control">
+                                                <option value="Fiction">Book</option>
+                                                <option value="Nonfiction">Novel</option>
+                                                <option value="Nonfiction">CD</option>
+                                                <option value="Nonfiction">DVD</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -158,13 +169,71 @@
     
                         </div>
                     </div>
+
+                <% } else if(action=='search') {%>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class ="row">
+                                <div class="col"><a href="/" class="btn btn-danger btn-sm">Back</a></div>
+                                <div class = "col"></div>
+                                <div class = "col">
+                                    <a href="/catalog/add" class ="btn btn-success btn-sm float-end">Add</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class ="table table-bordered">
+                                    <tr>
+                                        <th>ISBN</th>
+                                        <th>Media title</th>
+                                        <th>Media Author</th>
+                                        <th>Genre</th>
+                                        <th>Available?</th>
+                                        <th></th>
+                                    </tr>
+                                    <%
+                                    if(sampleData.length > 0)
+                                    {
+                                        sampleData.forEach(function(data){
+                                    %>
+                                    <tr>
+                                        <td><%= data.isbn %></td>
+                                        <td><%= data.title %></td>
+                                        <td><%= data.author %></td>
+                                        <td><%= data.genre %></td>
+                                        <td><% if (data.quantity>0){ %>
+                                                YES
+                                            <% } else { %>
+                                                NO
+                                             <% } %>
+                                        </td>
+                                        <td>
+                                            <a href="/catalog/edit/<%= data.isbn %>" class="btn btn-primary btn-sm">Edit</a>
+                                            <a href="/catalog/delete/<%= data.isbn %>" class="btn btn-danger btn-sm">Delete</a>
+                                        </td>
+                                    </tr>
+                                    <%});}
+                                    else
+                                    {%>
+                                    <tr>
+                                        <td colspan="5">No Data Found</td>
+                                    </tr>
+                                    <%  
+                                    }
+                                    %>
+                                </table>
+                            </div>
+                        </div>
+                   </div> 
+                    
                 
                 <!-- Default layout of catalog view. Displays all elements in DB Selected if no other actions have been selected -->
                 <% } else{ %>
                     <div class="card">
                         <div class="card-header">
                             <div class ="row">
-                                <div class = "col">Catalog View</div>
+                                <div class = "col"></div>
                                 <div class = "col">
                                     <a href="/catalog/add" class ="btn btn-success btn-sm float-end">Add</a>
                                 </div>
