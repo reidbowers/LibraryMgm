@@ -10,6 +10,7 @@ router.get("/", function(request, response, next){
     /* Select all items in DB to display    */
     var query = "SELECT * FROM `librarymgm`.`media` LIMIT 1000;"
 
+    //Run Query
     database.query(query, function(error, data){
         if(error)
         {
@@ -47,23 +48,28 @@ router.post("/add_catalog", function(request, response, next){
     (isbn,title,author,quantity,medDesc,publishyr,genre,category) 
     VALUES("${isbn}","${title}", "${author}", "${quantity}", "${medDesc}", "${publishyr}", "${genre}", "${category}")
     `;
-    try{
+
+    //Run Query
     database.query(query, function(error,data){
-    });}
-    catch{
-        throw(error);
-    }
-    finally{
-        response.redirect("/catalog");
-    }
+    
+        if(error){
+            throw(error);
+        }
+        else{
+            response.redirect("/catalog");
+        }
+    });
+        
 });
 
 /* Routing for edit button, retrieves ISBN from selection */
 router.get('/edit/:isbn', function(request, response, next){
     var isbn = request.params.isbn;
 
+    //Match isbn with selection
     var query = `SELECT * FROM media WHERE isbn = "${isbn}"`;
 
+    //Run Query
     database.query(query, function(error, data){
         
         // Displays edit page
@@ -79,7 +85,7 @@ router.get('/delete/:isbn', function(request, response, next){
     var query = `
     DELETE FROM media WHERE isbn = "${isbn}"
     `;
-    
+        //Run Query
         database.query(query, function(error, data){
 
         if(error){
@@ -115,22 +121,24 @@ router.post('/edit/:isbn', function(request, response, next){
     genre = "${genre}",
     quantity = "${quantity}",
     medDesc = "${medDesc}",
-    publishyr = "${publishyr}"
+    publishyr = "${publishyr}",
     category = "${category}"
     WHERE isbn = "${isbn}"
     `;
 
     //Run Update Query
-    try{
+    
     database.query(query, function(error,data){
 
-    })}
-    catch{
-        throw(error);
-    }
-    finally{
-        response.redirect('/catalog/');
-    }
+        if(error){
+            throw(error);
+        }
+        else{
+            response.redirect('/catalog/');
+        }
+    });
+        
+    
 });
 
 module.exports=router;

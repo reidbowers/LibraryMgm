@@ -33,6 +33,7 @@ router.get('/get_data', function(request,response, next){
 
     var search_query = request.query.search_query;
 
+    //Search DB for titles and authors that match the search query
     var query = `
     SELECT title,author FROM media
     WHERE title LIKE '%${search_query}%' OR author LIKE '%${search_query}%'
@@ -54,6 +55,7 @@ router.get('/get_data', function(request,response, next){
     })
 });
 
+//Take search query, send to catalog page, then display on catalog page
 router.get('/search', function(req, res){
   const find = req.query.find;
   const query = `
@@ -69,7 +71,7 @@ router.get('/search', function(req, res){
 
 /* Routing for 'Show All' Button  */
 router.get("/catalog/", function(request, response, next){
-
+  
   var query = "SELECT * FROM `librarymgm`.`media` LIMIT 1000;"
 
   database.query(query, function(error, data){
@@ -84,23 +86,5 @@ router.get("/catalog/", function(request, response, next){
       }
   })
 });
-
-
-/* -----  WIP Routing for selecting search element  ----
-
-router.get('/get_isbn', function(request, response, next){
-  var search_query = request.query.search_query;
-  
-  var query = `SELECT isbn FROM media WHERE title = '${search_query}'`;
-
-  database.query(query, function(error,data){
-    if(error){
-      throw error;
-    }
-    else{
-      response.json(data);
-    }
-  })
-*/
 
 module.exports = router;

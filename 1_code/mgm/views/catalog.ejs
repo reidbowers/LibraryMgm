@@ -54,12 +54,23 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label>Category</label>
+                                        <select name="category" class="form-control">
+                                            <option value="Fiction">Book</option>
+                                            <option value="Novel">Novel</option>
+                                            <option value="CD">CD</option>
+                                            <option value="DVD">DVD</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label>Quantity</label>
-                                        <input type="number" name="quantity" id="quantity" class="form-control"/>
+                                        <input type="text" pattern="\d*" maxlength="4" name="quantity" id="quantity" class="form-control"/>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -79,6 +90,7 @@
                             </div>
                             <div class ="mb-3">
                                 <input type="submit" name="submit_button" class="btn btn-primary" value="Add Media"/>
+                                <a href="/catalog/" class="btn btn-danger btn-sm">Back</a>
                             </div>
                         </form>
 
@@ -126,11 +138,11 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label>Category</label>
-                                            <select name="genre" class="form-control">
+                                            <select name="category" class="form-control">
                                                 <option value="Fiction">Book</option>
-                                                <option value="Nonfiction">Novel</option>
-                                                <option value="Nonfiction">CD</option>
-                                                <option value="Nonfiction">DVD</option>
+                                                <option value="Novel">Novel</option>
+                                                <option value="CD">CD</option>
+                                                <option value="DVD">DVD</option>
                                             </select>
                                         </div>
                                     </div>
@@ -153,12 +165,13 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label>Published Year</label>
-                                            <input type="number" name="publishyr" id="publishyr" class="form-control" value= "<%= sampleData.publishyr %>" />
+                                            <input type="text" pattern="\d*" maxlength="4" name="publishyr" id="publishyr" class="form-control" value= "<%= sampleData.publishyr %>" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class ="mb-3">
                                     <input type="submit" name="submit_button" class="btn btn-primary" value="Add Media"/>
+                                    <a href="/catalog/" class="btn btn-danger btn-sm">Back</a>
                                 </div>
                             </form>
 
@@ -169,7 +182,8 @@
     
                         </div>
                     </div>
-
+                
+                <!-- Displays after search on index page--> 
                 <% } else if(action=='search') {%>
                     <div class="card">
                         <div class="card-header">
@@ -189,6 +203,7 @@
                                         <th>Media title</th>
                                         <th>Media Author</th>
                                         <th>Genre</th>
+                                        <th>Category</th>
                                         <th>Available?</th>
                                         <th></th>
                                     </tr>
@@ -202,6 +217,7 @@
                                         <td><%= data.title %></td>
                                         <td><%= data.author %></td>
                                         <td><%= data.genre %></td>
+                                        <td><%= data.category %></td>
                                         <td><% if (data.quantity>0){ %>
                                                 YES
                                             <% } else { %>
@@ -233,7 +249,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class ="row">
-                                <div class = "col"></div>
+                                <div class = "col"><a href="/" class="btn btn-danger btn-sm">Back</a></div>
                                 <div class = "col">
                                     <a href="/catalog/add" class ="btn btn-success btn-sm float-end">Add</a>
                                 </div>
@@ -247,6 +263,7 @@
                                         <th>Media title</th>
                                         <th>Media Author</th>
                                         <th>Genre</th>
+                                        <th>Category</th>
                                         <th>Available?</th>
                                         <th></th>
                                     </tr>
@@ -260,6 +277,7 @@
                                         <td><%= data.title %></td>
                                         <td><%= data.author %></td>
                                         <td><%= data.genre %></td>
+                                        <td><%= data.category %></td>
                                         <td><% if (data.quantity>0){ %>
                                                 YES
                                             <% } else { %>

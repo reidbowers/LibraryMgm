@@ -14,14 +14,16 @@
         
         <div class="container">
             <h1 class "mt-5 mb-5 text-center text-primary"><b>CML Login</b></h1>
-
             <div class="row mt-5">
                 <div class="col-md-3">&nbsp;</div>
                 <div class="col-md-6">
+                    <% if(session.user_id) { %>
+                        <h1> Login Success!</h1>
+                    <% } else { %> <!-- Displays login forms -->
                         <div class="card">
                             <div class="card-header">Login</div>
                             <div class="card-body">
-                                <form method="POST" action="/login">
+                                <form method="POST" action="/login/login"> <!-- POST method to check login info-->
                                     <div class="mb-3">
                                         <label>Username</label>
                                         <input type="username" id="username" name="username" class="form-control" /> 
@@ -31,12 +33,12 @@
                                         <input type="password" id="user_password" name="user_password" class="form-control" />
                                     </div>
                                     <div class="mb-3">
-                                        <input type="submit" class="btn btn-primary"/>
+                                        <input type="submit" class="btn btn-primary"/> <!-- Submit -->
                                     </div>
                                 </form>
                             </div>
                         </div>
-                
+                    <% } %>
                 </div>
             </div>
 

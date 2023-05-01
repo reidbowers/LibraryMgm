@@ -5,11 +5,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser')
-var bcrypt = require('bcrypt');
 var session = require('express-session');
 
 var flash = require('connect-flash');
 
+//Routing
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var sampledataRouter = require('./routes/catalog');
@@ -21,6 +21,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+//Create Session ID
 app.use(session({
   secret : 'libmgm',
   cookie : {maxAge : 40000},
